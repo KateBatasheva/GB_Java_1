@@ -44,3 +44,5 @@ static void All (Employer [] arr){
      System.out.println();
 }
 }
+// ПКМ - Generate - Constructor
+// ctrl + нажать на поле - покажет где оно в классе animal.name - нажимаем на name
