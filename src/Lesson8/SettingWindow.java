@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SettingWindow extends JFrame {
+    public boolean settjrbHumVsHum;
     private GameWindow gameWindow;
 
     static final int WINDOW_X = GameWindow.WINDOW_X + 50;
@@ -34,7 +35,6 @@ public class SettingWindow extends JFrame {
 
         jrbHumVsAi = new JRadioButton("HumVsAi", true);
         jrbHumVsHum = new JRadioButton("HumVsHum");
-        jrbHumVsHum.setEnabled(false);
         gameModeGroup = new ButtonGroup();
         gameModeGroup.add(jrbHumVsAi);
         gameModeGroup.add(jrbHumVsHum);

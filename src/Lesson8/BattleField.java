@@ -16,36 +16,69 @@ public class BattleField extends JPanel {
 
     int cellWidth;
     int cellHeight;
-
+    int turn;
+    Step play_X = new Step(gameWindow, "Ходит Игрок №1 Крестиками");
+    Step play_O = new Step(gameWindow, "Ходит Игрок №2 Ноликами");
 
     public BattleField(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
         setBackground(Color.ORANGE);
+        turn = 1;
+
+
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 int cellX = e.getX() / cellWidth;
                 int cellY = e.getY() / cellHeight;
+                String result;
 
 
+
+        if (mode == 1) {
+            if (!Logic.isFinishedGame) {
+                if (turn == 1) {
+                    Logic.humanTurn(cellX, cellY, Logic.DOT_X);
+                    turn = 0;
+                    play_O.setVisible(true);
+                } else {
+                    Logic.humanTurn(cellX, cellY, Logic.DOT_O);
+                    turn = 1;
+                    play_X.setVisible(true);
+                }
+                Logic.goHuman();
+            }
+            repaint();
+        }
+        else {
                 if (!Logic.isFinishedGame) {
-                    Logic.humanTurn(cellX, cellY);
+                    Logic.humanTurn(cellX, cellY, Logic.DOT_X);
+                    Logic.goHuman();
+                    Logic.aiTurn();
+                    Logic.goAI();
+                    repaint();
+                }
+            }
+
 
                     if(Logic.isFinishedGame){
-//                        ResultWindow.resultCheck();
-                        String result;
-                        if (Logic.checkWinLines(Logic.DOT_O, Logic.DOTS_TO_WIN)){
-                            result = "Победил компьютер";
-                        } else if (Logic.checkWinLines(Logic.DOT_X, Logic.DOTS_TO_WIN)) {
-                            result = "Вы победили!";
-                        } else {
+                        if (Logic.checkWinLines(Logic.DOT_X, Logic.DOTS_TO_WIN)){
+                            result = "Победил игрок Крестиков (Х)";
+                        } else if (Logic.checkWinLines(Logic.DOT_O, Logic.DOTS_TO_WIN)) {
+                           if (mode==1) {
+                               result = "Победил игрок Ноликов (О)";
+                           } else {
+                               result = "Победили компьютер";
+                           }
+                        }
+                        else {
                             result = "Ничья";
                         }
                         ResultWindow resultWindow1 = new ResultWindow(gameWindow, result);
                         resultWindow1.setVisible(true);
                     }
-                }
+
 
 
                     repaint();
@@ -57,6 +90,7 @@ public class BattleField extends JPanel {
         this.mode = mode;
         this.fieldSize = fieldSize;
         this.winningLength = winningLength;
+        play_X.setVisible(true);
 
         isInit = true;
 

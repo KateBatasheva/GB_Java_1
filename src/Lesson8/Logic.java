@@ -17,27 +17,31 @@ public class Logic {
     static Random random = new Random();
 
     static boolean isFinishedGame;
+    private GameWindow gameWindow;
+    SettingWindow settingWindow = new SettingWindow(gameWindow);
 
-    private static void go() {
+    static void goHuman() {
         isFinishedGame = true;
-        printMap();
         if (checkWinLines(DOT_X, DOTS_TO_WIN)) {
-            System.out.println("Вы победили! Поздравляем!");
             return;
         }
         if (isFull()) {
-            System.out.println("Ничья");
             return;
         }
 
-        aiTurn();
-        printMap();
         if (checkWinLines(DOT_O, DOTS_TO_WIN)) {
-            System.out.println("Компьютер победил.");
             return;
         }
+
+        isFinishedGame = false;
+    }
+    static void goAI() {
+        isFinishedGame = true;
         if (isFull()) {
-            System.out.println("Ничья");
+            return;
+        }
+
+        if (checkWinLines(DOT_O, DOTS_TO_WIN)) {
             return;
         }
 
@@ -68,13 +72,17 @@ public class Logic {
         }
     }
 
-    public static void humanTurn(int x, int y) {
+    public static void humanTurn(int x, int y, char type) {
         if (!isCellValid(y, x)) {
             return;
         }
-
-        map[y][x] = DOT_X;
-        go();
+        if (type == DOT_X) {
+            map[y][x] = DOT_X;
+//            go();
+        } else {
+            map[y][x] = DOT_O;
+//            go();
+        }
     }
 
     public static boolean isCellValid(int y, int x) {
