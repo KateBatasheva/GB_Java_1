@@ -11,6 +11,7 @@ public class GameWindow extends JFrame {
 
     private BattleField battleField;
     private SettingWindow settingWindow;
+    private ResultWindow resultWindow;
 
     public GameWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -21,6 +22,7 @@ public class GameWindow extends JFrame {
         add(battleField, BorderLayout.CENTER);
 
         settingWindow = new SettingWindow(this);
+        resultWindow = new ResultWindow(this, " ");
 
         JPanel jPanel = new JPanel(new GridLayout(1, 2));
         JButton buttonNewGame = new JButton("Start new game");

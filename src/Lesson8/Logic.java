@@ -1,5 +1,6 @@
 package Lesson8;
 
+import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 
